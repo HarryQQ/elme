@@ -1,0 +1,11 @@
+
+<view class="btn-common" style="bottom: 200rpx"  bindtap='goMenu'>
+  <image src="./img/add-menu.png"
+         class="custom-btn-img"
+  ></image>
+</view>
+<view class="btn-common" bindtap='goOrder'>
+  <image src="./img/order-icon.png"
+         class="custom-btn-img"
+  ></image>
+</view>

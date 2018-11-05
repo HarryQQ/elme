@@ -1,0 +1,48 @@
+<view class="container">
+  <!--menu list-->
+  <view class="list-container">
+    <block wx:for="{{list}}" wx:key="{{item._id}}">
+      <view class="item {{item && item.isSlide ? 'slide' : ''}}" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' id="{{index}}">
+        <view class="item-left" bindtap="handleUpdate" id="{{index}}">
+          <image class="menu-img" src="{{item.img}}" mode="aspectFill" catchtap="preView" id="{{item.img}}"></image>
+          <view class="item-left-bottom">
+            <view class="menu-name">{{item.name}}</view>
+            <view class="menu-price">{{item.price}}元</view>
+          </view>
+        </view>
+        <view class="item-right" bindtap="delItem" id="{{index}}">删除</view>
+      </view>
+    </block>
+    <view style="height: 100rpx"></view>
+  </view>
+  <button class="add-btn" bindtap="handleAdd">新增</button>
+  <!--修改或新增弹框-->
+  <view class='mask' wx:if="{{modalShow}}" catchtouchmove="true">
+    <view class='modal__content'>
+      <view class='modal__title'>
+        <text>编辑</text>
+        <icon class='cancel' type="cancel" size='23' color='#fff' bindtap='closeMask'></icon>
+      </view>
+      <view class='modal__info'>
+        <view class="form-item">菜名
+          <input type="text" bindinput="changeInput" value="{{menu.name}}" id="name"/>
+        </view>
+        <view class="form-item">价格
+          <input type="text" bindinput="changeInput" value="{{menu.price}}" id="price"/>
+        </view>
+        <!-- 上传图片 -->
+        <view class="uploader">
+          <button class="commit-btn" bindtap="upload" plain="true" size="mini">上传图片</button>
+          <image class="uploader-image" src="{{menu.img || defImg}}" mode="aspectFill" bindtap="preView" id="{{menu.img}}"></image>
+
+        </view>
+      </view>
+      <view class="modal__bottom">
+        <view bindtap="closeMask">取消</view>
+        <view bindtap="commit">确定</view>
+      </view>
+    </view>
+  </view>
+</view>
+<image src="../../images/homepage_fill.png" class="gohome-icon" bindtap="goHome"></image>
+

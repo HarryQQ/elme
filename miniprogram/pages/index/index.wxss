@@ -1,0 +1,66 @@
+.index{
+  font-size: 26rpx;
+  margin: 40rpx;
+}
+
+.list-container{
+  width: 100%;
+  margin-top: 10rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.item{
+  position: relative;
+  width: 290rpx;
+  padding: 6rpx;
+  border: 6rpx solid darkgray;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+  text-align: center;
+}
+.item>.selected-icon{
+  position: absolute;
+  color: #fff;
+  right: 0;
+  top:0;
+  width: 60rpx;
+  height: 60rpx;
+  background: #007aff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0rpx 0rpx 0rpx 10rpx;
+}
+.selected{
+  border-color: #007aff;
+}
+
+.menu-img{
+  width: 100%;
+  height: 290rpx;
+  margin: 0 auto;
+}
+.menu-name{
+  font-size: 30rpx;
+}
+.menu-price{}
+.btn-order{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+.fanda-icon{
+  position: absolute;
+  bottom: 100rpx;
+  left:16rpx;
+  width: 30rpx;
+  height: 30rpx;
+}

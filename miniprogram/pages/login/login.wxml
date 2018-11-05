@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+  <image src="{{avatarUrl}}" class="avatar"></image>
+  <!-- 用户 openid -->
+  <view class="userinfo">
+    <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="btn-auth">授权</button>
+  </view>
+</view>

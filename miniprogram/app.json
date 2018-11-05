@@ -1,0 +1,36 @@
+{
+  "cloud": true,
+  "pages": [
+    "pages/index/index",
+    "pages/order/order",
+    "pages/menu/menu",
+    "pages/mine/mine",
+    "pages/login/login"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "二了么",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#3d3d3d",
+    "backgroundColor": "transparent",
+    "selectedColor": "#2c2c2c",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "点餐",
+        "iconPath": "images/manage.png",
+        "selectedIconPath": "images/manage_fill.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine_fill.png"
+      }
+    ]
+  }
+}

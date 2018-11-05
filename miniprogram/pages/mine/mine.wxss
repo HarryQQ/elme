@@ -1,0 +1,7 @@
+.container{
+  font-size: 26rpx;
+  margin: 40rpx;
+}
+.item{
+  display: flex;
+}

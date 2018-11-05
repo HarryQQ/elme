@@ -1,0 +1,6 @@
+.container{
+  font-size: 26rpx;
+}
+.item{
+  display: flex;
+}
