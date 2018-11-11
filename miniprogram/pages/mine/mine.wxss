@@ -1,7 +1,74 @@
-.container{
+.mine{
   font-size: 26rpx;
-  margin: 40rpx;
 }
+/*列表部分*/
+.list-container{
+  width: 100%;
+}
+
 .item{
+  background: #fff;
+  position: relative;
+  transition: all 0.3s;
+  width: 100%;
+  left: 0;
+  margin-bottom: 20rpx;
+}
+
+/*侧滑删除部分*/
+.slide {
+  left: -150rpx;
+}
+.item-left{
+  border: 1rpx solid #7A7A7A;
+  border-right: transparent;
   display: flex;
+  z-index: 10;
+}
+
+.item-left-bottom{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 30rpx;
+  color: #2c2c2c;
+}
+
+.item-right{
+  width: 150rpx;
+  color:#fff;
+  position: absolute;
+  right: -150rpx;
+  top:0;
+  background: red;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.menu-img{
+  width: 180rpx;
+  height: 180rpx;
+  margin-right: 20rpx;
+}
+.menu-name{}
+.menu-price{}
+
+.add-btn{
+  font-size: 30rpx;
+  position: fixed;
+  bottom: 0;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  width: 100%;
+  z-index: 11;
+}
+
+.item-left-pay{
+  position: absolute;
+  right: 20rpx;
+  top: 30rpx;
 }

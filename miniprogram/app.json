@@ -2,7 +2,7 @@
   "cloud": true,
   "pages": [
     "pages/index/index",
-    "pages/order/order",
+    "pages/order/order",  
     "pages/menu/menu",
     "pages/mine/mine",
     "pages/login/login"

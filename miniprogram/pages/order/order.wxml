@@ -1,10 +1,37 @@
-<!--index.wxml-->
-<view class="container">
-  <view bindtap="flash">刷新</view>
-  <view wx:for="{{list}}" wx:key="{{index}}">
-    <view class="item">
-      <view>{{item.nickName}}点了{{item.name}}</view>
-      <view>{{item.price}}元</view>
-    </view>
+<!-- index.wxml -->
+<view class="mine">
+  <view class="btn-group">
+    <button class="top-btn {{currentIndex === 0 ? 'selected' : ''}}" bindtap="getTodayList">今日订单</button>
+    <button class="top-btn {{currentIndex === 1 ? 'selected' : ''}}" bindtap="getUnpaidList">未付订单</button>
+    <button class="top-btn {{currentIndex === 2 ? 'selected' : ''}}" bindtap="getList">全部订单</button>
+  </view>
+  <view class="list-container">
+    <block wx:for="{{list}}" wx:key="{{item._id}}">
+      <view class="item {{item && item.isSlide ? 'slide' : ''}}" id="{{index}}">
+        <view class="item-left" id="{{index}}">
+          <image class="menu-img" src="{{item.img}}" mode="aspectFill" catchtap="preView" id="{{item.img}}"></image>
+          <view class="item-left-bottom">
+            <view class="menu-name">{{item.name}}</view>
+            <view class="menu-price">{{item.price}}元
+              <text wx:if="{{currentIndex === 0}}"> * {{item.childList.length}} = {{item.price*item.childList.length}}元</text>
+              </view>
+            <view class="">{{item.dateStr}}</view>
+          </view>
+          <view class="info">
+            <image class="single-avatar" src="{{item.avatarUrl}}" ></image>
+            <view class="">{{item.nickName}}</view>
+          </view>
+        </view>
+        <view class="item-bottom" wx:if="{{currentIndex === 0}}">
+          <view wx:for="{{item.childList}}" wx:for-item="i" class="user-info">
+            <image class="miniAvatar" src="{{i.avatarUrl}}"></image>
+            <view class="name">{{i.nickName}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <view style="height: 200rpx"></view>
+    <view class="total" wx:if="{{currentIndex === 0}}">合计：{{total}}</view>
   </view>
 </view>
+<image src="../../images/homepage_fill.png" class="gohome-icon" bindtap="goHome"></image>

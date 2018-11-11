@@ -1,28 +1,42 @@
 //index.js
 const app = getApp()
 const db = wx.cloud.database()
+import {js_date_time} from "../../utils/dateFormat.js"
+
+
 Page({
   data: {
     userInfo: {}, // 用户信息
     list: [], // 订单
+
+    isSlide: false,
+    startX: 0,
+    startY: 0,
   },
 
   onLoad() { // 初始化页面
     const userInfo = wx.getStorageSync('userInfo')
     this.setData({userInfo})
+    
   },
   onShow(){
-    this.getTodayList()
+    this.getList()
   },
   // 查询当前用户所有的order
   getList() {
     const {userInfo={}} = this.data
     console.log(userInfo._id)
-    // todo分页 limit不传默认只有20
+    // 这里不做分页，查出500条，按订单时间倒序
     db.collection('order').where({
       uid: userInfo._id,
-    }).limit(500).get().then(resp => {
-      this.setData({list: resp.data})
+    }).limit(500).orderBy('created', 'desc').get().then(resp => {
+      // 按时间戳转字符串
+      const list = resp.data.map(item => {
+        item.dateStr = js_date_time(item.created + '')
+        return item
+      })
+      console.log('list', list)
+      this.setData({list})
       console.log(resp)
     }).catch(console.error)
   },
@@ -71,5 +85,65 @@ Page({
         }
       }
     })
-  }
+  },
+
+   // 删除
+   delItem(e) {
+    const index = e.currentTarget.id
+    const id = this.data.list[index]._id
+    wx.showModal({
+      title: '',
+      content: '确认要删除吗？',
+      success: res => {
+        if (res.confirm) {
+          db.collection('order').doc(id).remove().then(resp => {
+            this.getList()
+          }).catch(console.error)
+        }
+      }
+    })
+  },
+   /**
+   * 侧滑删除相关方法
+   */
+
+  onTouchStart(e) {
+    this.data.startX = e.changedTouches[0].clientX
+    this.data.startY = e.changedTouches[0].clientY
+  },
+  onTouchMove(e) {
+    let {list} = this.data
+    const index = e.currentTarget.id
+    let item = list[index]
+    this.data.endX = e.changedTouches[0].clientX
+    this.data.endY = e.changedTouches[0].clientY
+    let touchDistance = this.data.endX - this.data.startX
+    let angle = Math.abs(this.getAngle({
+      startX: this.data.startX,
+      startY: this.data.startY
+    }, {
+      endX: this.data.endX,
+      endY: this.data.endY
+    }))
+    if (touchDistance < -50 && angle < 30) { // 打开
+      if (!this.data.isSlide) {
+        console.log('ss',item)
+        item['isSlide'] = true
+        list[index] = item
+        this.setData({list})
+      }
+    }
+    if (touchDistance > 10 && angle < 30) { // 关闭
+      item['isSlide'] = false
+      list[index] = item
+      this.setData({list})
+    }
+  },
+  getAngle(start, end) {
+    let _X = end.endX - start.startX
+    let _Y = end.endY - start.startY
+    //返回角度 /Math.atan()返回数字的反正切值
+    return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
+  },
+  
 })

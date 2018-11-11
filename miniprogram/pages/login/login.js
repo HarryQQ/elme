@@ -32,6 +32,9 @@ Page({
       console.log(resp.result.userInfo)
       // 保存本地缓存
       wx.setStorageSync('userInfo', resp.result.userInfo)
+      wx.switchTab({
+        url: '/pages/index/index'
+      })
     }).catch(console.error)
 
   },

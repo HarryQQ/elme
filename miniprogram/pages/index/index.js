@@ -4,8 +4,8 @@ const db = wx.cloud.database()
 Page({
   // 数据结构
   data: {
-    userInfo: {},
-    menu: {
+    userInfo: {}, // 用户信息
+    menu: { // 选中的菜单
       name: '',
       price: '',
       img: ''
@@ -23,16 +23,17 @@ Page({
         url: '/pages/login/login'
       })
     }
+    // 用户信息保存在本地
     this.setData({userInfo})
-    this.getList()
+    // 获取菜单列表
+    
   },
   onShow(){
-
+    this.getList()
   },
   // 下单
   order() {
     const {current, list, userInfo} = this.data
-    console.log('order userInfo', userInfo)
     const menu = list[current]
     let order = {
       uid: userInfo._id,
@@ -48,15 +49,18 @@ Page({
     db.collection('order').add({
       data: order,
     }).then(resp => {
-      console.log(resp)
       wx.showToast({
         title: '点餐成功',
+        success: () => { // 点餐成功后跳转我的页面
+          wx.switchTab({
+            url: '/pages/mine/mine'
+          })
+        }
       })
     }).catch(console.error)
   },
   // 获取菜单
   getList() {
-    // 查询当前用户所有的 counters
     db.collection('menu').get({
       success: res => {
         this.setData({
@@ -72,13 +76,6 @@ Page({
         })
         console.error('[数据库] [查询记录] 失败：', err)
       }
-    })
-  },
-  // 公用-input值改变
-  changeInput(e) {
-    this.data.menu[e.target.id] = e.detail.value
-    this.setData({
-      menu: this.data.menu
     })
   },
   // 选择要吃什么

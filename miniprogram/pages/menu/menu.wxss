@@ -174,4 +174,5 @@
   border-radius: 50%;
   border: 2rpx solid #3c3c3c;
   z-index: 11;
+  background: #fff;
 }
