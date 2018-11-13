@@ -49,19 +49,19 @@
 }
 
 .menu-img{
-  width: 180rpx;
-  height: 180rpx;
-  margin-right: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  margin: 20rpx;
 }
 .menu-name{}
 .menu-price{}
 
 .add-btn{
-  font-size: 30rpx;
+  font-size: 28rpx;
   position: fixed;
   bottom: 0;
-  height: 100rpx;
-  line-height: 100rpx;
+  height: 70rpx;
+  line-height: 70rpx;
   text-align: center;
   width: 100%;
   z-index: 11;

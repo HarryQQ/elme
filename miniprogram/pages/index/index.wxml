@@ -1,17 +1,17 @@
 <!--index.wxml-->
 <view class="index">
-  <view style="margin-bottom: 20rpx;font-size: 30rpx">今天想吃什么？</view>
+  <view style="margin-bottom: 20rpx;font-size: 30rpx">PS：双拼可以在[菜单]新增后再下单</view>
   <view class="list-container">
     <view wx:for="{{list}}" wx:key="{{item._id}}"
           class="item {{current === index ? 'selected' : ''}}"  bindtap="select" id="{{index}}">
-      <image class="menu-img" src="{{item.img}}" mode="aspectFill"></image>
+      <!--<image class="menu-img" src="{{item.img || app.globalData.defaultImg}}" mode="aspectFill"></image>-->
       <view class="menu-name">{{item.name}}</view>
       <view class="menu-price">{{item.price}}元</view>
-      <image class="fanda-icon" src="../../images/icon-fanda.png" catchtap="preView" id="{{item.img}}"></image>
+      <!--<image class="fanda-icon" src="../../images/icon-fanda.png" catchtap="preView" id="{{item.img}}"></image>-->
       <!--<view class="selected-icon" wx:if="{{current === index}}">✔</view>-->
     </view>
   </view>
   <view style="height: 100rpx"></view>
   <button class="btn-order" bindtap="order" >确定下单</button>
-  <fixed-icon></fixed-icon>
+  <!--<fixed-icon></fixed-icon>-->
 </view>

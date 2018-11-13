@@ -1,14 +1,18 @@
 .mine{
   font-size: 26rpx;
+  position: relative;
+  height: 100%;
 }
 
 .btn-group{
   display: flex;
   padding: 20rpx;
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   z-index: 100;
   background: #fff;
+  border-bottom: 1rpx solid gray;
 }
 /*列表部分*/
 .list-container{
@@ -28,6 +32,7 @@
   border: 1rpx solid #7A7A7A;
   border-right: transparent;
   display: flex;
+  align-items: center;
   z-index: 10;
 }
 
@@ -54,23 +59,12 @@
 }
 
 .menu-img{
-  width: 180rpx;
-  height: 180rpx;
-  margin-right: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  margin: 20rpx;
 }
 .menu-name{}
 .menu-price{}
-
-.add-btn{
-  font-size: 30rpx;
-  position: fixed;
-  bottom: 0;
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  width: 100%;
-  z-index: 11;
-}
 
 .item-left-pay{
   position: absolute;
@@ -93,35 +87,36 @@
 .item-bottom{
   border-bottom: 1rpx solid gray;
   display: flex;
+  overflow-x:scroll;
 }
 
 .user-info{
   text-align: center;
   margin: 10rpx 20rpx;
   margin-right: 0rpx;
-  
+
 }
 
 .total{
   position: fixed;
   width: 100%;
-  height: 100rpx;
-  line-height: 100rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   bottom:0;
   background: #fff;
   text-align: center;
   font-weight: bold;
-  font-size: 40rpx;
-  border-top: 1rpx solid gray; 
+  font-size: 34rpx;
+  border-top: 1rpx solid gray;
 }
 .selected{
   border: 2rpx solid black;
 }
 
 .info{
-  position: absolute;
-  right: 20rpx;
-  top: 30rpx;
+  width: 100rpx;
+  flex: 1 1 auto;
+  margin: 20rpx;
   text-align: center;
 }
 
@@ -135,4 +130,16 @@
   border: 2rpx solid #3c3c3c;
   z-index: 11;
   background: #fff;
+}
+
+.no-border{
+  border: transparent;
+}
+
+.no-pay{
+  color: red;
+}
+
+.top-btn{
+  font-size: 24rpx;
 }

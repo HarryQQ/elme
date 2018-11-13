@@ -11,5 +11,6 @@ App({
     // 全局变量
   },
   globalData: {
+    defaultImg: '../../images/default-menu.png', // 全局默认图片
   }
 })

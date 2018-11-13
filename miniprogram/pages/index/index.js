@@ -4,6 +4,7 @@ const db = wx.cloud.database()
 Page({
   // 数据结构
   data: {
+    app,
     userInfo: {}, // 用户信息
     menu: { // 选中的菜单
       name: '',
@@ -16,6 +17,8 @@ Page({
   },
   // 进入页面
   onLoad() {
+  },
+  onShow(){
     // 获取缓存中的userInfo
     const userInfo = wx.getStorageSync('userInfo')
     if(!userInfo._id) { // 未授权跳转登录页授权
@@ -25,15 +28,18 @@ Page({
     }
     // 用户信息保存在本地
     this.setData({userInfo})
-    // 获取菜单列表
-    
-  },
-  onShow(){
     this.getList()
   },
   // 下单
   order() {
     const {current, list, userInfo} = this.data
+    console.log('userInfo', userInfo)
+    if(!userInfo._id) {
+      wx.navigateTo({
+        url: '/pages/login/login'
+      })
+      return
+    }
     const menu = list[current]
     let order = {
       uid: userInfo._id,
@@ -49,9 +55,13 @@ Page({
     db.collection('order').add({
       data: order,
     }).then(resp => {
-      wx.showToast({
-        title: '点餐成功',
-        success: () => { // 点餐成功后跳转我的页面
+      wx.showModal({
+        title: '',
+        content: '点餐成功，结单前可以删除重选',
+        confirmText: '我知道了',
+        showCancel: false,
+        confirmColor: '#000000',
+        success: res=>{
           wx.switchTab({
             url: '/pages/mine/mine'
           })

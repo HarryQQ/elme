@@ -5,9 +5,11 @@ import { js_date_time, uniq } from "../../utils/dateFormat.js";
 
 Page({
   data: {
+    app,
     userInfo: {}, // 用户信息
     list: [], // 订单
-    currentIndex: 0
+    currentIndex: 0,
+    total: 0 // 合计
   },
 
   onLoad() {
@@ -19,40 +21,32 @@ Page({
   onShow() {},
   // 查询当前用户所有的order
   getList() {
-    const { userInfo = {} } = this.data;
-    // 这里不做分页，查出500条，按订单时间倒序
-    db.collection("order")
-      .limit(500)
-      .orderBy("created", "desc")
-      .get()
+    wx.cloud
+      .callFunction({
+        name: "order",
+        data: { type: 2 }
+      })
       .then(resp => {
-        // 按时间戳转字符串
-        const list = resp.data.map(item => {
+        let list = resp.result
+        list = list.map(item => {
           item.dateStr = js_date_time(item.created + "");
           return item;
         });
         this.setData({ list, currentIndex: 2 });
-        console.log(resp);
       })
       .catch(console.error);
   },
   // 获取今天所有订单
   getTodayList() {
-    const d = new Date();
-    // 今天凌晨的时间戳
-    const today = new Date(
-      `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`
-    ).getTime();
-    console.log("today", today);
-    const _ = db.command;
-    db.collection("order")
-      .where({
-        created: _.gt(today)
+    wx.cloud
+      .callFunction({
+        name: "order",
+        data: { type: 0 }
       })
-      .limit(500)
-      .get()
       .then(resp => {
-        const list = resp.data.map(item => {
+        let list = resp.result
+        console.log('list', list);
+        list = list.map(item => {
           item.dateStr = js_date_time(item.created + "");
           return item;
         });
@@ -67,20 +61,20 @@ Page({
           const { mid, name, price, img } = childList[0];
           return { mid, name, price, img, childList };
         });
-        this.setData({ list: groupList, currentIndex: 0, total });
+        this.setData({ list: groupList, currentIndex: 0 , total});
       })
       .catch(console.error);
   },
   // 获取所有未支付订单
   getUnpaidList() {
-    db.collection("order")
-      .where({
-        paid: false
+    wx.cloud
+      .callFunction({
+        name: "order",
+        data: { type: 1 }
       })
-      .limit(500)
-      .get()
       .then(resp => {
-        const list = resp.data.map(item => {
+        let list = resp.result
+        list = list.map(item => {
           item.dateStr = js_date_time(item.created + "");
           return item;
         });

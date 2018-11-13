@@ -2,9 +2,12 @@
   <!--menu list-->
   <view class="list-container">
     <block wx:for="{{list}}" wx:key="{{item._id}}">
-      <view class="item {{item && item.isSlide ? 'slide' : ''}}" bindtouchstart='onTouchStart' bindtouchmove='onTouchMove' id="{{index}}">
+      <view class="item {{item && item.isSlide ? 'slide' : ''}}"
+            bindtouchstart='onTouchStart'
+            bindtouchmove='onTouchMove' id="{{index}}">
         <view class="item-left" bindtap="handleUpdate" id="{{index}}">
-          <image class="menu-img" src="{{item.img}}" mode="aspectFill" catchtap="preView" id="{{item.img}}"></image>
+          <image class="menu-img" src="{{item.img || app.globalData.defaultImg}}" mode="aspectFill"
+                 catchtap="preView" id="{{item.img}}"></image>
           <view class="item-left-bottom">
             <view class="menu-name">{{item.name}}</view>
             <view class="menu-price">{{item.price}}元</view>
@@ -13,7 +16,7 @@
         <view class="item-right" bindtap="delItem" id="{{index}}">删除</view>
       </view>
     </block>
-    <view style="height: 100rpx"></view>
+    <view style="height: 100rpx;background: #fff;"></view>
   </view>
   <button class="add-btn" bindtap="handleAdd">新增</button>
   <!--修改或新增弹框-->
@@ -32,8 +35,11 @@
         </view>
         <!-- 上传图片 -->
         <view class="uploader">
-          <button class="commit-btn" bindtap="upload" plain="true" size="mini">上传图片</button>
-          <image class="uploader-image" src="{{menu.img || defImg}}" mode="aspectFill" bindtap="preView" id="{{menu.img}}"></image>
+          <view>
+            <button class="commit-btn" bindtap="upload" plain="true" size="mini">上传图片</button>
+            <view class="uploader-tips">图片可不传</view>
+          </view>
+          <image class="uploader-image" src="{{menu.img || app.globalData.defaultImg}}" mode="aspectFill" bindtap="preView" id="{{menu.img}}"></image>
 
         </view>
       </view>
@@ -44,5 +50,5 @@
     </view>
   </view>
 </view>
-<image src="../../images/homepage_fill.png" class="gohome-icon" bindtap="goHome"></image>
+<!--<image src="../../images/homepage_fill.png" class="gohome-icon" bindtap="goHome"></image>-->
 

@@ -6,9 +6,9 @@ import {js_date_time} from "../../utils/dateFormat.js"
 
 Page({
   data: {
+    app,
     userInfo: {}, // 用户信息
     list: [], // 订单
-
     isSlide: false,
     startX: 0,
     startY: 0,
@@ -17,7 +17,7 @@ Page({
   onLoad() { // 初始化页面
     const userInfo = wx.getStorageSync('userInfo')
     this.setData({userInfo})
-    
+
   },
   onShow(){
     this.getList()
@@ -74,6 +74,7 @@ Page({
     wx.showModal({
       title: '',
       content: '确定真的给了钱吗？',
+      confirmColor: '#000000',
       success: res=>{
         if (res.confirm) {
           db.collection('order').doc(id).update({
@@ -127,7 +128,9 @@ Page({
     }))
     if (touchDistance < -50 && angle < 30) { // 打开
       if (!this.data.isSlide) {
-        console.log('ss',item)
+        list.forEach(i => {
+          i.isSlide = false
+        })
         item['isSlide'] = true
         list[index] = item
         this.setData({list})
@@ -145,5 +148,5 @@ Page({
     //返回角度 /Math.atan()返回数字的反正切值
     return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
   },
-  
+
 })

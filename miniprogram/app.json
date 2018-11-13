@@ -2,7 +2,7 @@
   "cloud": true,
   "pages": [
     "pages/index/index",
-    "pages/order/order",  
+    "pages/order/order",
     "pages/menu/menu",
     "pages/mine/mine",
     "pages/login/login"
@@ -22,14 +22,26 @@
       {
         "pagePath": "pages/index/index",
         "text": "点餐",
-        "iconPath": "images/manage.png",
-        "selectedIconPath": "images/manage_fill.png"
+        "iconPath": "images/emoji.png",
+        "selectedIconPath": "images/emoji_fill.png"
       },
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
         "iconPath": "images/mine.png",
         "selectedIconPath": "images/mine_fill.png"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "订单",
+        "iconPath": "images/activity.png",
+        "selectedIconPath": "images/activity_fill.png"
+      },
+      {
+        "pagePath": "pages/menu/menu",
+        "text": "菜单",
+        "iconPath": "images/manage.png",
+        "selectedIconPath": "images/manage_fill.png"
       }
     ]
   }

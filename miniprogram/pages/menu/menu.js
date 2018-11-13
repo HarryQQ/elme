@@ -1,10 +1,10 @@
 //index.js
 const app = getApp()
 const db = wx.cloud.database()
-
 Page({
   // 数据结构
   data: {
+    app,
     menu: {
       // name: '',
       // price: '',
@@ -16,7 +16,6 @@ Page({
     isSlide: false,
     startX: 0,
     startY: 0,
-    defImg:'../../images/default-menu.png' // 默认菜品图片
   },
   // 进入页面
   onLoad() { // 初始化页面
@@ -42,14 +41,13 @@ Page({
   commit() {
     const that = this
     const {name, price, img, _id = ''} = this.data.menu
-    if (!name || !price || !img) {
+    if (!name || !price) {
       wx.showToast({
         icon: 'none',
         title: '请填写完整~'
       })
       return
     }
-    console.log('fuck', this.data.menu)
     const newPram = {name, price, img}
     if (_id) { // 有id为修改，没有id为新增
       db.collection('menu').doc(_id).update({
@@ -94,8 +92,10 @@ Page({
 
   },
   // 获取菜单
+  // 查询当前用户所有的 counters
+
+
   getList() {
-    // 查询当前用户所有的 counters
     db.collection('menu').get({
       success: res => {
         this.setData({
@@ -108,7 +108,6 @@ Page({
           icon: 'none',
           title: '查询记录失败'
         })
-        console.error('[数据库] [查询记录] 失败：', err)
       }
     })
   },
@@ -175,6 +174,7 @@ Page({
   },
   // 显示新增
   handleAdd() {
+    this.resetList()
     this.setData({
       modalShow: true,
       menu: {}
@@ -182,6 +182,7 @@ Page({
   },
   // 显示修改
   handleUpdate(e) {
+    this.resetList()
     const index = e.currentTarget.id
     const currentItem = this.data.list[index]
     this.setData({
@@ -206,7 +207,7 @@ Page({
     })
   },
   // 放大预览
-  preView(e){
+  preView(e) {
     const imgUrl = e.currentTarget.id
     wx.previewImage({
       current: imgUrl,
@@ -238,7 +239,9 @@ Page({
     }))
     if (touchDistance < -50 && angle < 30) { // 打开
       if (!this.data.isSlide) {
-        console.log('ss',item)
+        list.forEach(i => {
+          i.isSlide = false
+        })
         item['isSlide'] = true
         list[index] = item
         this.setData({list})
@@ -257,9 +260,16 @@ Page({
     return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
   },
   // 回到首页
-  goHome(){
+  goHome() {
     wx.switchTab({
       url: '/pages/index/index'
     })
-  }
+  },
+  resetList(){
+    const {list = []} = this.data
+    list.forEach(i => {
+      i.isSlide = false
+    })
+    this.setData({list})
+  },
 })
