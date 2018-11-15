@@ -15,6 +15,14 @@ Page({
     newId: '', // 新增的id
     current: 0, // 选中的下标
   },
+  onShareAppMessage: function (res) {
+    const {userInfo={}} = this.data
+    return {
+      title: `${userInfo.nickName}推荐给你一个小程序`,
+      path: '/pages/index/index',
+      imageUrl: userInfo.avatarUrl
+    }
+  },
   // 进入页面
   onLoad() {
   },
